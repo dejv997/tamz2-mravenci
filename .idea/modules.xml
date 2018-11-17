@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/tamz2-mravenci.iml" filepath="$PROJECT_DIR$/tamz2-mravenci.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/Mrafency.iml" filepath="$PROJECT_DIR$/Mrafency.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
->>>>>>> master
     </modules>
   </component>
 </project>

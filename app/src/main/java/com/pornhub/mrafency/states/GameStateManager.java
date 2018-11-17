@@ -1,7 +1,6 @@
 package com.pornhub.mrafency.states;
 
 import android.graphics.Canvas;
-<<<<<<< HEAD
 import android.view.SurfaceView;
 
 import com.pornhub.mrafency.Drawable;
@@ -22,19 +21,6 @@ public class GameStateManager implements Drawable, Updatable {
         states.put(State.PLAYSTATE, new PlayState(view));
 
         currentState = State.PLAYSTATE;
-=======
-
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-
-public class GameStateManager {
-    private State currentState;
-    private Map<State, GameState> states = new HashMap<>();
-
-    public GameStateManager() {
-        states.put(State.PLAYSTATE, new PlayState());
->>>>>>> master
     }
 
     public void draw(Canvas canvas) {

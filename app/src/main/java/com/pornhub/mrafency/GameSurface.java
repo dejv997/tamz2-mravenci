@@ -11,6 +11,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.pornhub.mrafency.states.GameStateManager;
+import com.pornhub.mrafency.states.PlayState;
+import com.pornhub.mrafency.states.State;
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, Updatable {
 
@@ -50,7 +52,10 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, 
     // Implements method of SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        gsm = new GameStateManager(this);
+        gsm = GameStateManager.getInstance();
+
+        gsm.putState(State.PLAYSTATE, new PlayState(this));
+        gsm.switchState(State.PLAYSTATE);
 
         this.gameThread = new GameThread(this, holder);
         this.gameThread.setRunning(true);

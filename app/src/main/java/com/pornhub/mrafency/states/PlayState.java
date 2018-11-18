@@ -27,18 +27,41 @@ public class PlayState implements GameState {
         players[1] = new Player();
     }
 
-    public void setupPlayer(Player player) {
-        player.setResource(Resource.BRICKS, 10);
-        player.setResource(Resource.BUILDERS, 2);
+    private void setupPlayer(Player player) {
+        setPlayerResource(Resource.BRICKS, 10);
+        setPlayerResource(Resource.BUILDERS, 2);
 
-        player.setResource(Resource.WEAPONS, 10);
-        player.setResource(Resource.SOLDIERS, 2);
+        setPlayerResource(Resource.WEAPONS, 10);
+        setPlayerResource(Resource.SOLDIERS, 2);
 
-        player.setResource(Resource.CRYSTALS, 10);
-        player.setResource(Resource.WIZARDS, 2);
+        setPlayerResource(Resource.CRYSTALS, 10);
+        setPlayerResource(Resource.WIZARDS, 2);
 
-        player.setResource(Resource.WALL, 10);
-        player.setResource(Resource.CASTLE, 20);
+        setPlayerResource(Resource.WALL, 10);
+        setPlayerResource(Resource.CASTLE, 20);
+
+
+        setOpponentResource(Resource.BRICKS, 10);
+        setOpponentResource(Resource.BUILDERS, 2);
+
+        setOpponentResource(Resource.WEAPONS, 10);
+        setOpponentResource(Resource.SOLDIERS, 2);
+
+        setOpponentResource(Resource.CRYSTALS, 10);
+        setOpponentResource(Resource.WIZARDS, 2);
+
+        setOpponentResource(Resource.WALL, 10);
+        setOpponentResource(Resource.CASTLE, 20);
+    }
+
+    private void setPlayerResource(Resource resource, int value) {
+        getPlayer().setResource(resource, value);
+        gui.setPlayerResource(resource, value);
+    }
+
+    private void setOpponentResource(Resource resource, int value) {
+        getOpponent().setResource(resource, value);
+        gui.setOpponentResource(resource, value);
     }
 
     @Override

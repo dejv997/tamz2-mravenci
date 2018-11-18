@@ -25,7 +25,13 @@ public class Gui implements Drawable {
     public void draw(Canvas canvas) {
         leftResourceInfo.draw(canvas);
         rightResourceInfo.draw(canvas);
+    }
 
+    public void setPlayerResource(Resource resource, int value) {
+        leftResourceInfo.setResourceValue(resource, value);
+    }
 
+    public void setOpponentResource(Resource resource, int value) {
+        rightResourceInfo.setResourceValue(resource, value);
     }
 }

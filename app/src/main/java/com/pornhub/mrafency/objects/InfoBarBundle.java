@@ -7,7 +7,6 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.view.View;
 
 import com.pornhub.mrafency.Drawable;
@@ -17,12 +16,14 @@ public class InfoBarBundle implements Drawable {
     private int width;
     private int height;
     private Paint backgroundPaint;
+    private Paint backgroundStrokePaint;
     private Paint dividerPaint;
     private Point position;
     private InfoBar top;
     private InfoBar bottom;
+    private Rect backgroundRect;
 
-    public InfoBarBundle(View view, Point position, int width, int height, int backgroundColor, Resource top, Resource bottom) {
+    public InfoBarBundle(View view, Point position, int width, int height, Resource top, Resource bottom) {
         this.position = position;
         this.width = width;
         this.height = height;
@@ -43,7 +44,15 @@ public class InfoBarBundle implements Drawable {
 
         backgroundPaint = new Paint();
         backgroundPaint.setStyle(Paint.Style.FILL);
-        backgroundPaint.setColor(backgroundColor);
+        backgroundPaint.setStrokeWidth(3);
+        backgroundPaint.setColor(top.getColor());
+
+        backgroundStrokePaint = new Paint();
+        backgroundStrokePaint.setStyle(Paint.Style.STROKE);
+        backgroundStrokePaint.setStrokeWidth(3);
+        backgroundStrokePaint.setColor(Color.BLACK);
+
+        backgroundRect = new Rect(position.x, position.y, position.x + width, position.y + height);
 
         dividerPaint = new Paint();
         dividerPaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -62,7 +71,8 @@ public class InfoBarBundle implements Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawRect(position.x, position.y, position.x + width, position.y + height, backgroundPaint);
+        canvas.drawRect(backgroundRect, backgroundPaint);
+        canvas.drawRect(backgroundRect, backgroundStrokePaint);
         top.draw(canvas);
         bottom.draw(canvas);
         canvas.drawLine(position.x, position.y + (int)(height / 2), position.x + width, position.y + (int)(height / 2), dividerPaint);

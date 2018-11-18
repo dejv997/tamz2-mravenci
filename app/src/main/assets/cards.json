@@ -1,0 +1,20 @@
+{
+  "cards": [
+    {
+      "id": 0,
+      "name": "Babylon",
+      "price": {
+        "resource": 1,
+        "amount": 2
+      },
+      "actions": [
+        {
+          "type": 2,
+          "resource": 7,
+          "amount": 20,
+          "target": 0
+        }
+      ]
+    }
+  ]
+}

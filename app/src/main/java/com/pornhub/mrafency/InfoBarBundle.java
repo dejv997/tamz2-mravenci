@@ -1,4 +1,4 @@
-package com.pornhub.mrafency.objects;
+package com.pornhub.mrafency;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,7 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.View;
 
-import com.pornhub.mrafency.Drawable;
+import java.util.concurrent.Callable;
 
 public class InfoBarBundle implements Drawable {
 
@@ -23,12 +23,18 @@ public class InfoBarBundle implements Drawable {
     private InfoBar bottom;
     private Rect backgroundRect;
 
-    public InfoBarBundle(View view, Point position, int width, int height, Resource top, Resource bottom) {
+    public InfoBarBundle(View view, final Player player, Point position, int width, int height, final Resource top, final Resource bottom) {
         this.position = position;
         this.width = width;
         this.height = height;
 
         this.top = new InfoBar(
+                new Callable<Integer>() {
+                    @Override
+                    public Integer call() {
+                        return player.getResource(top);
+                    }
+                },
                 BitmapFactory.decodeResource(view.getResources(), top.getImageResource()),
                 this.position,
                 width,
@@ -36,6 +42,12 @@ public class InfoBarBundle implements Drawable {
         );
 
         this.bottom = new InfoBar(
+                new Callable<Integer>() {
+                    @Override
+                    public Integer call() {
+                        return player.getResource(bottom);
+                    }
+                },
                 BitmapFactory.decodeResource(view.getResources(), bottom.getImageResource()),
                 new Point(position.x, position.y + height / 2),
                 width,
@@ -59,14 +71,6 @@ public class InfoBarBundle implements Drawable {
         dividerPaint.setStrokeWidth(5);
         dividerPaint.setPathEffect(new DashPathEffect(new float[] {4, 4}, 50));
         dividerPaint.setColor(Color.BLACK);
-    }
-
-    public void setTopValue(int value) {
-        top.setValue(value);
-    }
-
-    public void setBottomValue(int value) {
-        bottom.setValue(value);
     }
 
     @Override

@@ -23,6 +23,7 @@ public class GameStateManager implements Drawable, Updatable {
     }
 
     public void putState(State state, GameState gameState) {
+        gameState.init();
         states.put(state, gameState);
     }
 
@@ -31,11 +32,15 @@ public class GameStateManager implements Drawable, Updatable {
     }
 
     public void draw(Canvas canvas) {
-        states.get(currentState).draw(canvas);
+        getCurrentState().draw(canvas);
     }
 
     public void update() {
-        states.get(currentState).update();
+        getCurrentState().update();
+    }
+
+    public GameState getCurrentState() {
+        return states.get(currentState);
     }
 
 }

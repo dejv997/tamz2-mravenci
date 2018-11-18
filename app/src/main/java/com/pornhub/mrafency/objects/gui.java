@@ -3,29 +3,29 @@ package com.pornhub.mrafency.objects;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.View;
 
 import com.pornhub.mrafency.Drawable;
-import com.pornhub.mrafency.R;
 
 public class Gui implements Drawable {
 
-    private InfoBar bricksInfo;
-    private InfoBar[] buildersInfo = new InfoBar[Resource.values().length];
+    private ResourceInfo leftResourceInfo;
+    private ResourceInfo rightResourceInfo;
 
     public Gui(View view) {
-        bricksInfo = new InfoBar(
-                BitmapFactory.decodeResource(view.getResources(), R.drawable.brick),
-                Color.RED,
-                new Point((int)(view.getWidth() * 0.05), (int)(view.getHeight() * 0.1)),
-                (int)(view.getWidth() * 0.2), (int)(view.getWidth() * 0.2 / 3)
-        );
+        leftResourceInfo = new ResourceInfo(view, true);
+        rightResourceInfo = new ResourceInfo(view, false);
 
     }
 
     @Override
     public void draw(Canvas canvas) {
-        bricksInfo.draw(canvas);
+        leftResourceInfo.draw(canvas);
+        rightResourceInfo.draw(canvas);
+
+
     }
 }

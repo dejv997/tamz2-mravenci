@@ -10,6 +10,7 @@ import com.pornhub.mrafency.GameSurface;
 import com.pornhub.mrafency.Player;
 import com.pornhub.mrafency.R;
 import com.pornhub.mrafency.objects.Gui;
+import com.pornhub.mrafency.objects.Resource;
 
 public class PlayState implements GameState {
 
@@ -26,8 +27,24 @@ public class PlayState implements GameState {
         players[1] = new Player();
     }
 
+    public void setupPlayer(Player player) {
+        player.setResource(Resource.BRICKS, 10);
+        player.setResource(Resource.BUILDERS, 2);
+
+        player.setResource(Resource.WEAPONS, 10);
+        player.setResource(Resource.SOLDIERS, 2);
+
+        player.setResource(Resource.CRYSTALS, 10);
+        player.setResource(Resource.WIZARDS, 2);
+
+        player.setResource(Resource.WALL, 10);
+        player.setResource(Resource.CASTLE, 20);
+    }
+
     @Override
     public void init() {
+        setupPlayer(getPlayer());
+        setupPlayer(getOpponent());
     }
 
     @Override

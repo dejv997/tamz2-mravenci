@@ -45,7 +45,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, 
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(200, 200, 50, paint);
+        //canvas.drawCircle(200, 200, 50, paint);
         canvas.drawText(Integer.toString(canvas.getWidth()) + " " + Integer.toString(canvas.getHeight()), 50, 50, paint);
     }
 

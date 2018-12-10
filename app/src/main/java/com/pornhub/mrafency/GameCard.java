@@ -94,4 +94,8 @@ public class GameCard implements Drawable {
 
         DrawingUtils.drawMutiLineTextBottom(canvas, card.getActionText(), actionTextPos, actionTextPaint);
     }
+
+    public RectF getRect() {
+        return cardRect;
+    }
 }

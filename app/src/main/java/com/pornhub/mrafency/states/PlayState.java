@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 import com.pornhub.mrafency.BitmapManager;
+import com.pornhub.mrafency.Card;
 import com.pornhub.mrafency.CardManager;
 import com.pornhub.mrafency.GameSide;
 import com.pornhub.mrafency.Player;
@@ -23,14 +24,15 @@ public class PlayState implements GameState {
     private Gui gui;
     private Map<PlayerType, Player> players = new HashMap<>();
     private Bitmap backgroundBitmap;
+    private PlayerType onTurn;
 
     public PlayState(View view) {
         this.view = view;
 
         CardManager.getInstance().loadCards(view.getContext());
 
-        players.put(PlayerType.PLAYER1, new Player(view, GameSide.LEFT));
-        players.put(PlayerType.PLAYER2, new Player(view, GameSide.RIGHT));
+        players.put(PlayerType.PLAYER1, new Player(view, GameSide.LEFT, true));
+        players.put(PlayerType.PLAYER2, new Player(view, GameSide.RIGHT, false));
 
         getPlayer(PlayerType.PLAYER1).setOpponent(getPlayer(PlayerType.PLAYER2));
         getPlayer(PlayerType.PLAYER2).setOpponent(getPlayer(PlayerType.PLAYER1));
@@ -38,6 +40,8 @@ public class PlayState implements GameState {
         gui = new Gui(view);
 
         backgroundBitmap = BitmapManager.getInstance().getBitmap(R.drawable.bg);
+
+        onTurn = PlayerType.PLAYER1;
     }
 
     private void setupPlayer(Player player) {
@@ -73,6 +77,13 @@ public class PlayState implements GameState {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public void onTouch(float x, float y) {
+        if(onTurn == PlayerType.PLAYER1) {
+            Card card = getPlayer(PlayerType.PLAYER1).useCard(x, y);
+        }
     }
 
     public Player getPlayer(PlayerType playerType) {

@@ -11,13 +11,17 @@ public class Player implements Drawable {
     private Map<Resource, Integer> resources = new HashMap<>();
     private CardManager cardManager = CardManager.getInstance();
     private GameCard[] cards = new GameCard[CARD_COUNT];
+    private CardBack[] cardBacks = new CardBack[CARD_COUNT];
     private ResourceInfo resourceInfo;
     private Player opponent = null;
+    private boolean showCards;
 
-    public Player(View view, GameSide side) {
+    public Player(View view, GameSide side, boolean showCards) {
+        this.showCards = showCards;
         resourceInfo = new ResourceInfo(view, this, side);
         for(int i = 0; i < cards.length; i++) {
             cards[i] = new GameCard(view, cardManager.getRandomCard(), i);
+            cardBacks[i] = new CardBack(view, i);
         }
     }
 
@@ -45,13 +49,45 @@ public class Player implements Drawable {
     }
 
     public void drawCards(Canvas canvas) {
-        for(GameCard card : cards) {
-            card.draw(canvas);
+        if(showCards) {
+            for(int i = 0; i < cards.length; i++) {
+                if(cards[i] != null) {
+                    cards[i].draw(canvas);
+                } else {
+                    cardBacks[i].draw(canvas);
+                }
+            }
+        } else {
+            for(int i = 0; i < cards.length; i++) {
+                cardBacks[i].draw(canvas);
+            }
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
         resourceInfo.draw(canvas);
+    }
+
+    public Card useCard(float x, float y) {
+        for(int i = 0; i < cards.length; i++) {
+            GameCard card = cards[i];
+            if(card != null) {
+                if(x >= card.getRect().left && x <= card.getRect().right && y >= card.getRect().top && y <= card.getRect().bottom) {
+                    useCard(i);
+                    return card.getCard();
+                }
+            }
+        }
+        return null;
+    }
+
+    private void useCard(int i) {
+        cards[i].getCard().use(this, opponent);
+        cards[i] = null;
+    }
+
+    public Card useRandomCard() {
+        return null;
     }
 }

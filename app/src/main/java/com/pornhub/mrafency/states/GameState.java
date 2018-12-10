@@ -9,4 +9,5 @@ public interface GameState extends Drawable, Updatable {
     void init();
     void draw(Canvas canvas);
     void update();
+    void onTouch(float x, float y);
 }

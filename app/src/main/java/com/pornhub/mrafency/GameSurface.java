@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.constraint.solver.widgets.ResolutionDimension;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -89,6 +91,16 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, 
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        switch (ev.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                GameStateManager.getInstance().getCurrentState().onTouch(ev.getX(), ev.getY());
+                break;
+        }
+        return true;
     }
 
 }

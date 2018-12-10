@@ -19,6 +19,15 @@ public class BitmapManager {
     }
 
     public void loadBitmaps(Resources resources) {
+        loadBitmap(resources, R.drawable.bg);
+        loadBitmap(resources, R.drawable.brick);
+        loadBitmap(resources, R.drawable.builder);
+        loadBitmap(resources, R.drawable.castle);
+        loadBitmap(resources, R.drawable.crystal);
+        loadBitmap(resources, R.drawable.soldier);
+        loadBitmap(resources, R.drawable.wall);
+        loadBitmap(resources, R.drawable.wand);
+        loadBitmap(resources, R.drawable.weapon);
 
     }
 

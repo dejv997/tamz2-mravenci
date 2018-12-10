@@ -29,14 +29,14 @@ public class InfoBarBundle implements Drawable {
         this.height = height;
 
         this.top = new InfoBar(
-                BitmapFactory.decodeResource(view.getResources(), top.getImageResource()),
+                BitmapManager.getInstance().getBitmap(top.getImageResource()),
                 this.position,
                 width,
                 (int)(height / 2)
         );
 
         this.bottom = new InfoBar(
-                BitmapFactory.decodeResource(view.getResources(), bottom.getImageResource()),
+                BitmapManager.getInstance().getBitmap(bottom.getImageResource()),
                 new Point(position.x, position.y + height / 2),
                 width,
                 (int)(height / 2)

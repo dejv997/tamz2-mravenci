@@ -1,10 +1,12 @@
 package com.pornhub.mrafency.states;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
 
+import com.pornhub.mrafency.BitmapManager;
 import com.pornhub.mrafency.CardManager;
 import com.pornhub.mrafency.GameSide;
 import com.pornhub.mrafency.Player;
@@ -20,6 +22,7 @@ public class PlayState implements GameState {
     private View view;
     private Gui gui;
     private Map<PlayerType, Player> players = new HashMap<>();
+    private Bitmap backgroundBitmap;
 
     public PlayState(View view) {
         this.view = view;
@@ -33,6 +36,8 @@ public class PlayState implements GameState {
         getPlayer(PlayerType.PLAYER2).setOpponent(getPlayer(PlayerType.PLAYER1));
 
         gui = new Gui(view);
+
+        backgroundBitmap = BitmapManager.getInstance().getBitmap(R.drawable.bg);
     }
 
     private void setupPlayer(Player player) {
@@ -57,7 +62,7 @@ public class PlayState implements GameState {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(BitmapFactory.decodeResource(view.getResources(), R.drawable.bg), null, new Rect(0, 0, view.getWidth(), view.getHeight()), null);
+        canvas.drawBitmap(backgroundBitmap, null, new Rect(0, 0, view.getWidth(), view.getHeight()), null);
         gui.draw(canvas);
         for(Player player : players.values()) {
             player.draw(canvas);

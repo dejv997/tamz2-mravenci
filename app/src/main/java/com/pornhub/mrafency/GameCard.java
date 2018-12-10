@@ -74,7 +74,7 @@ public class GameCard implements Drawable {
         this.card = card;
         strokePaint.setColor(card.getPriceResource().getColor());
         backgroundPaint.setColor(ColorUtil.lighten(card.getPriceResource().getColor(), 160));
-        resourceImage = BitmapFactory.decodeResource(view.getResources(), card.getPriceResource().getImageResource());
+        resourceImage = BitmapManager.getInstance().getBitmap(card.getPriceResource().getImageResource());
         resourceRect = new Rect(
                 (int)(cardRect.left + (cardRect.right - cardRect.left) * 0.07),
                 (int)(cardRect.top + (cardRect.right - cardRect.left) * 0.07),

@@ -53,6 +53,35 @@ public class ResourceInfo implements Drawable {
         );
     }
 
+    public void setResourceValue(Resource resource, int value) {
+        switch(resource) {
+            case BUILDERS:
+                infoBundles[0].setTopValue(value);
+                break;
+            case BRICKS:
+                infoBundles[0].setBottomValue(value);
+                break;
+            case SOLDIERS:
+                infoBundles[1].setTopValue(value);
+                break;
+            case WEAPONS:
+                infoBundles[1].setBottomValue(value);
+                break;
+            case WIZARDS:
+                infoBundles[2].setTopValue(value);
+                break;
+            case CRYSTALS:
+                infoBundles[2].setBottomValue(value);
+                break;
+            case CASTLE:
+                infoBundles[3].setTopValue(value);
+                break;
+            case WALL:
+                infoBundles[3].setBottomValue(value);
+                break;
+        }
+    }
+
     @Override
     public void draw(Canvas canvas) {
         for(InfoBarBundle bundle : infoBundles) {

@@ -8,23 +8,29 @@ import android.view.View;
 import com.pornhub.mrafency.CardManager;
 import com.pornhub.mrafency.GameSide;
 import com.pornhub.mrafency.Player;
+import com.pornhub.mrafency.PlayerType;
 import com.pornhub.mrafency.R;
 import com.pornhub.mrafency.Gui;
 import com.pornhub.mrafency.Resource;
 
-public class PlayState implements GameState {
+import java.util.HashMap;
+import java.util.Map;
 
+public class PlayState implements GameState {
     private View view;
     private Gui gui;
-    private Player[] players = new Player[2];
+    private Map<PlayerType, Player> players = new HashMap<>();
 
     public PlayState(View view) {
         this.view = view;
 
         CardManager.getInstance().loadCards(view.getContext());
 
-        players[0] = new Player(view, GameSide.LEFT);
-        players[1] = new Player(view, GameSide.RIGHT);
+        players.put(PlayerType.PLAYER1, new Player(view, GameSide.LEFT));
+        players.put(PlayerType.PLAYER2, new Player(view, GameSide.RIGHT));
+
+        getPlayer(PlayerType.PLAYER1).setOpponent(getPlayer(PlayerType.PLAYER2));
+        getPlayer(PlayerType.PLAYER2).setOpponent(getPlayer(PlayerType.PLAYER1));
 
         gui = new Gui(view);
     }
@@ -45,16 +51,18 @@ public class PlayState implements GameState {
 
     @Override
     public void init() {
-        setupPlayer(getPlayer1());
-        setupPlayer(getPlayer2());
+        setupPlayer(getPlayer(PlayerType.PLAYER1));
+        setupPlayer(getPlayer(PlayerType.PLAYER2));
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(BitmapFactory.decodeResource(view.getResources(), R.drawable.bg), null, new Rect(0, 0, view.getWidth(), view.getHeight()), null);
         gui.draw(canvas);
-        getPlayer1().draw(canvas);
-        getPlayer2().draw(canvas);
+        for(Player player : players.values()) {
+            player.draw(canvas);
+        }
+        getPlayer(PlayerType.PLAYER1).drawCards(canvas);
     }
 
     @Override
@@ -62,11 +70,7 @@ public class PlayState implements GameState {
 
     }
 
-    public Player getPlayer1() {
-        return players[0];
-    }
-
-    public Player getPlayer2() {
-        return players[1];
+    public Player getPlayer(PlayerType playerType) {
+        return players.get(playerType);
     }
 }

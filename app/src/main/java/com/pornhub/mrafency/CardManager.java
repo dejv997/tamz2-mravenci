@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 
@@ -24,6 +25,7 @@ public class CardManager {
     private static final CardManager SELF = new CardManager();
     private final String CARDS_FILE = "cards.json";
     private final Map<Integer, Card> cards = new HashMap<>();
+    private Random r = new Random();
 
     public static CardManager getInstance() {
         return SELF;
@@ -76,7 +78,7 @@ public class CardManager {
                     CardActionTarget target = CardActionTarget.fromValue(a.getInt("target"));
                     int amount = a.getInt("amount");
                     Resource resource = null;
-                    if(type == CardActionType.MODIFY_RESOURCES) {
+                    if(type == CardActionType.MODIFY_RESOURCE) {
                         resource = Resource.fromValue(a.getInt("resource"));
                     }
 
@@ -89,5 +91,14 @@ public class CardManager {
         } catch (final JSONException e) {
             Log.e(TAG, "Json parsing error: " + e.getMessage());
         }
+    }
+
+    public Card getRandomCard() {
+        int key = (int)cards.keySet().toArray()[r.nextInt(cards.size())];
+        return cards.get(key);
+    }
+
+    public Card getCard(int id) {
+        return cards.get(id);
     }
 }

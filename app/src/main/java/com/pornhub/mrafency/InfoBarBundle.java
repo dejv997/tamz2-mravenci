@@ -29,12 +29,6 @@ public class InfoBarBundle implements Drawable {
         this.height = height;
 
         this.top = new InfoBar(
-                new Callable<Integer>() {
-                    @Override
-                    public Integer call() {
-                        return player.getResource(top);
-                    }
-                },
                 BitmapFactory.decodeResource(view.getResources(), top.getImageResource()),
                 this.position,
                 width,
@@ -42,12 +36,6 @@ public class InfoBarBundle implements Drawable {
         );
 
         this.bottom = new InfoBar(
-                new Callable<Integer>() {
-                    @Override
-                    public Integer call() {
-                        return player.getResource(bottom);
-                    }
-                },
                 BitmapFactory.decodeResource(view.getResources(), bottom.getImageResource()),
                 new Point(position.x, position.y + height / 2),
                 width,
@@ -71,6 +59,14 @@ public class InfoBarBundle implements Drawable {
         dividerPaint.setStrokeWidth(5);
         dividerPaint.setPathEffect(new DashPathEffect(new float[] {4, 4}, 50));
         dividerPaint.setColor(Color.BLACK);
+    }
+
+    public void setTopValue(int value) {
+        top.setValue(value);
+    }
+
+    public void setBottomValue(int value) {
+        bottom.setValue(value);
     }
 
     @Override

@@ -20,18 +20,21 @@ public class InfoBar implements Drawable {
     private int height;
     private Paint valuePaint;
     private Rect textBounds = new Rect();
-    private Callable<Integer> getValueFunc;
+    private int value = 0;
 
-    public InfoBar(Callable<Integer> getValueFunc, Bitmap symbol, Point position, int width, int height) {
+    public InfoBar(Bitmap symbol, Point position, int width, int height) {
         this.symbol = symbol;
         this.position = position;
         this.width = width;
         this.height = height;
-        this.getValueFunc = getValueFunc;
 
         valuePaint = new Paint();
         valuePaint.setColor(Color.WHITE);
         valuePaint.setTextSize((int)(height * 0.8));
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class InfoBar implements Drawable {
         );
 
         try {
-            String valueText = Integer.toString(getValueFunc.call());
+            String valueText = Integer.toString(value);
             valuePaint.getTextBounds(valueText, 0, valueText.length(), textBounds);
             canvas.drawText(valueText, position.x + (int)(width * 0.5), position.y + height / 2 - textBounds.exactCenterY(), valuePaint);
         } catch (Exception e) {

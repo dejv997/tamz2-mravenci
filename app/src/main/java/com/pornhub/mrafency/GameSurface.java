@@ -52,6 +52,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, 
     // Implements method of SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        BitmapManager.getInstance().loadBitmaps(this.getResources());
         gsm = GameStateManager.getInstance();
 
         gsm.putState(State.PLAYSTATE, new PlayState(this));

@@ -3,14 +3,14 @@ package com.pornhub.mrafency;
 import android.graphics.Color;
 
 public enum Resource {
-    BRICKS(R.drawable.brick, "Cihly", Color.RED),           // 0
-    BUILDERS(R.drawable.builder, "Stavitelé", Color.RED),   // 1
-    WEAPONS(R.drawable.weapon, "Zbraně", Color.GREEN),      // 2
-    SOLDIERS(R.drawable.soldier, "Vojáci", Color.GREEN),    // 3
-    CRYSTALS(R.drawable.crystal, "Krystaly", Color.BLUE),   // 4
-    WIZARDS(R.drawable.wand, "Mágové", Color.BLUE),         // 5
-    WALL(R.drawable.wall, "Hradba", Color.DKGRAY),          // 6
-    CASTLE(R.drawable.castle, "Hrad", Color.DKGRAY);        // 7
+    BRICKS(R.drawable.brick, "Cihly", Color.parseColor("#880000")),         // 0
+    BUILDERS(R.drawable.builder, "Stavitelé", Color.parseColor("#880000")), // 1
+    WEAPONS(R.drawable.weapon, "Zbraně", Color.parseColor("#008800")),      // 2
+    SOLDIERS(R.drawable.soldier, "Vojáci", Color.parseColor("#008800")),    // 3
+    CRYSTALS(R.drawable.crystal, "Krystaly", Color.parseColor("#000088")),  // 4
+    WIZARDS(R.drawable.wand, "Mágové", Color.parseColor("#000088")),        // 5
+    WALL(R.drawable.wall, "Hradba", Color.parseColor("#888888")),           // 6
+    CASTLE(R.drawable.castle, "Hrad", Color.parseColor("#888888"));         // 7
 
     private final int imageResource;
     private final String name;

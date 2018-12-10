@@ -2,16 +2,35 @@
   "cards": [
     {
       "id": 0,
-      "name": "Babylon",
+      "name": "Čaruj krystaly",
       "price": {
-        "resource": 1,
-        "amount": 2
+        "resource": 4,
+        "amount": 4
+      },
+      "actions": [
+        {
+          "type": 3,
+          "resource": 4,
+          "amount": 8,
+          "target": 0
+        }
+      ]
+    },{
+      "id": 2,
+      "name": "Kletba",
+      "price": {
+        "resource": 4,
+        "amount": 25
       },
       "actions": [
         {
           "type": 2,
-          "resource": 7,
-          "amount": 20,
+          "amount": -1,
+          "target": 1
+        },
+        {
+          "type": 2,
+          "amount": 1,
           "target": 0
         }
       ]

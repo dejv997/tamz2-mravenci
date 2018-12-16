@@ -79,11 +79,9 @@ public class GameCard implements Drawable {
     public void setCard(Card card, boolean discarded) {
         this.card = card;
         if(discarded) {
-            strokePaint.setColor(Color.DKGRAY);
-            backgroundPaint.setColor(Color.LTGRAY);
+            setGrayBackground();
         } else {
-            strokePaint.setColor(card.getPriceResource().getColor());
-            backgroundPaint.setColor(ColorUtil.lighten(card.getPriceResource().getColor(), 160));
+            setColoredBackground();
         }
         resourceImage = BitmapManager.getInstance().getBitmap(card.getPriceResource().getImageResource());
         resourceRect = new Rect(
@@ -108,5 +106,15 @@ public class GameCard implements Drawable {
 
     public RectF getRect() {
         return cardRect;
+    }
+
+    public void setGrayBackground() {
+        strokePaint.setColor(Color.DKGRAY);
+        backgroundPaint.setColor(Color.LTGRAY);
+    }
+
+    public void setColoredBackground() {
+        strokePaint.setColor(card.getPriceResource().getColor());
+        backgroundPaint.setColor(ColorUtil.lighten(card.getPriceResource().getColor(), 160));
     }
 }

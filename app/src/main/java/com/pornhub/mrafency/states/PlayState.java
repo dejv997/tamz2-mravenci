@@ -1,9 +1,9 @@
 package com.pornhub.mrafency.states;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,13 +18,17 @@ import com.pornhub.mrafency.BitmapManager;
 import com.pornhub.mrafency.Card;
 import com.pornhub.mrafency.CardBack;
 import com.pornhub.mrafency.CardManager;
+import com.pornhub.mrafency.DatabaseManager;
 import com.pornhub.mrafency.GameCard;
 import com.pornhub.mrafency.GameSide;
+import com.pornhub.mrafency.MenuActivity;
 import com.pornhub.mrafency.Player;
 import com.pornhub.mrafency.PlayerType;
 import com.pornhub.mrafency.R;
 import com.pornhub.mrafency.Gui;
 import com.pornhub.mrafency.Resource;
+import com.pornhub.mrafency.Score;
+import com.pornhub.mrafency.ScoreActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +49,7 @@ public class PlayState implements GameState {
     private Point leftTeamTextPos;
     private Paint rightTeamTextPaint;
     private Point rightTeamTextPos;
+    private long startTime;
 
     public PlayState(View view) {
         this.view = view;
@@ -88,20 +93,22 @@ public class PlayState implements GameState {
 
         leftTeamTextPos = new Point((int)(view.getWidth() * 0.295f), (int)(view.getHeight() * 0.105f));
         rightTeamTextPos = new Point((int)(view.getWidth() * 0.705f), (int)(view.getHeight() * 0.105f));
+
+        startTime = System.currentTimeMillis();
     }
 
     private void setupPlayer(Player player) {
-        player.setResource(Resource.BRICKS, 10);
+        player.setResource(Resource.BRICKS, 5);
         player.setResource(Resource.BUILDERS, 2);
 
-        player.setResource(Resource.WEAPONS, 10);
+        player.setResource(Resource.WEAPONS, 5);
         player.setResource(Resource.SOLDIERS, 2);
 
-        player.setResource(Resource.CRYSTALS, 10);
+        player.setResource(Resource.CRYSTALS, 5);
         player.setResource(Resource.WIZARDS, 2);
 
         player.setResource(Resource.WALL, 10);
-        player.setResource(Resource.CASTLE, 20);
+        player.setResource(Resource.CASTLE, 30);
     }
 
     @Override
@@ -148,7 +155,7 @@ public class PlayState implements GameState {
                     card = getPlayer(PlayerType.PLAYER2).useCard(cardIndex);
                 }
                 setUsedCard(card, discarded);
-                waitTicks = 60;
+                waitTicks = 180;
             }
         }
     }
@@ -162,7 +169,7 @@ public class PlayState implements GameState {
                     boolean discarded = !getPlayer(PlayerType.PLAYER1).canUse(index);
                     Card card = getPlayer(PlayerType.PLAYER1).useCard(index);
                     setUsedCard(card, discarded);
-                    waitTicks = 60;
+                    waitTicks = 180;
                 }
             }
         }
@@ -179,7 +186,14 @@ public class PlayState implements GameState {
             MediaPlayer mp = MediaPlayer.create(view.getContext(), R.raw.win);;
             mp.setVolume((sounds ? 1 : 0), (sounds ? 1 : 0));
             mp.start();
-            // win or lose
+
+            Intent intent = new Intent(view.getContext(), ScoreActivity.class);
+            if(players.get(PlayerType.PLAYER2).isDestroyed()) {
+                long time = System.currentTimeMillis() - startTime;
+                DatabaseManager.getDatabase(view.getContext()).scoreDao().insert(new Score(time));
+                intent.putExtra("time", time);
+            }
+            view.getContext().startActivity(intent);
         }
 
         if(onTurn == PlayerType.PLAYER1) {
@@ -191,6 +205,7 @@ public class PlayState implements GameState {
             leftTeamTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             rightTeamTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         }
+        players.get(onTurn).incOnNewTurn();
     }
 
     private void setUsedCard(Card card, boolean discarded) {

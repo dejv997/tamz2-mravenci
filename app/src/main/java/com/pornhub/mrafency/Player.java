@@ -48,6 +48,11 @@ public class Player implements Drawable {
         if(value < 0) {
             value = 0;
         }
+        if(resource == Resource.CASTLE) {
+            if(value >= 100) {
+                opponent.destroy();
+            }
+        }
         setResource(resource, value);
     }
 
@@ -67,6 +72,12 @@ public class Player implements Drawable {
         }
     }
 
+    public void incOnNewTurn() {
+        incrementResource(Resource.BRICKS, resources.get(Resource.BUILDERS));
+        incrementResource(Resource.CRYSTALS, resources.get(Resource.WIZARDS));
+        incrementResource(Resource.WEAPONS, resources.get(Resource.SOLDIERS));
+    }
+
     public void setResource(Resource resource, int value) {
         resources.put(resource, value);
         resourceInfo.setResourceValue(resource, value);
@@ -76,6 +87,11 @@ public class Player implements Drawable {
         if(showCards) {
             for(int i = 0; i < cards.length; i++) {
                 if(cards[i] != null) {
+                    if(canUse(i)) {
+                        cards[i].setColoredBackground();
+                    } else {
+                        cards[i].setGrayBackground();
+                    }
                     cards[i].draw(canvas);
                 } else {
                     cardBacks[i].draw(canvas);
@@ -154,5 +170,9 @@ public class Player implements Drawable {
 
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    public void destroy() {
+        destroyed = true;
     }
 }

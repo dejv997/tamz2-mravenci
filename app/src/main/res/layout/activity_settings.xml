@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Zvuky"
-            android:textOff="Zvuky vypnuy"
+            android:textOff="Zvuky vypnuty"
             android:textOn="Zvuky zapnuty" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

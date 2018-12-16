@@ -16,9 +16,11 @@ public class GameThread extends Thread {
 
     @Override
     public void run()  {
-        long startTime = System.nanoTime();
+        long startTime;
+        long targetTime = 1000 / 60;
 
         while(running)  {
+            startTime = System.nanoTime();
             Canvas canvas= null;
             try {
                 // Get Canvas from Holder and lock it.
@@ -40,19 +42,14 @@ public class GameThread extends Thread {
             long now = System.nanoTime() ;
             // Interval to redraw game
             // (Change nanoseconds to milliseconds)
-            long waitTime = (now - startTime) / 1000000;
-            if(waitTime < 10)  {
-                waitTime = 10; // Millisecond.
-            }
-            System.out.print(" Wait Time="+ waitTime);
+            long waitTime = targetTime - (now - startTime) / 1000000;
 
             try {
                 // Sleep.
                 sleep(waitTime);
-            } catch(InterruptedException e)  {
+            } catch(Exception e)  {
 
             }
-            startTime = System.nanoTime();
             System.out.print(".");
         }
     }

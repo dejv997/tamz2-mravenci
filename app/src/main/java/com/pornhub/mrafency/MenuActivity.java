@@ -24,4 +24,9 @@ public class MenuActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
     }
+
+    public void showScore(View view) {
+        Intent intent = new Intent(getApplicationContext(), ScoreActivity.class);
+        startActivity(intent);
+    }
 }

@@ -118,7 +118,7 @@
       },
       "actions": [{
         "type": 3,
-        "resource": 5,
+        "resource": 7,
         "amount": 22,
         "target": 0
       }]
@@ -421,7 +421,7 @@
         "amount": 15
       },
       "actions": [{
-        "type": 2,
+        "type": 1,
         "amount": 5,
         "target": 0
       }

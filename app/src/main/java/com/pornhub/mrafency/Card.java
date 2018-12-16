@@ -1,5 +1,9 @@
 package com.pornhub.mrafency;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+
 import java.util.List;
 
 public class Card {
@@ -9,8 +13,10 @@ public class Card {
     private int priceAmount;
     private List<CardAction> actions;
     private String actionText;
+    private Context context;
 
-    public Card(int id, String name, Resource priceResource, int priceAmount, List<CardAction> actions) {
+    public Card(Context context, int id, String name, Resource priceResource, int priceAmount, List<CardAction> actions) {
+        this.context = context;
         this.id = id;
         this.name = name;
         this.priceResource = priceResource;
@@ -64,6 +70,12 @@ public class Card {
     }
 
     public void use(Player owner, Player opponent) {
+        SharedPreferences preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        boolean sounds = preferences.getBoolean("sounds", true);
+
+        MediaPlayer mp = MediaPlayer.create(context, R.raw.card);
+        mp.setVolume((sounds ? 1 : 0), (sounds ? 1 : 0));
+
         for(CardAction action : actions) {
             Player target = null;
             if(action.getTarget() == CardActionTarget.SELF) {
@@ -71,26 +83,38 @@ public class Card {
             } else if(action.getTarget() == CardActionTarget.OPPONENT) {
                 target = opponent;
             }
-
+            MediaPlayer effect = null;
             switch(action.getType()) {
                 case ATTACK:
                     opponent.damage(action.getAmount());
+                    effect = MediaPlayer.create(context, R.raw.attack);
                     break;
                 case STEAL_SUPPLIES:
                     opponent.incrementSupplies(-action.getAmount());
                     target.incrementSupplies(action.getAmount());
+                    effect = MediaPlayer.create(context, R.raw.other);
                     break;
                 case MODIFY_RESOURCE:
                     target.incrementResource(action.getResource(), action.getAmount());
+                    if(getPriceResource() == Resource.BRICKS) {
+                        effect = MediaPlayer.create(context, R.raw.stone);
+                    } else {
+                        effect = MediaPlayer.create(context, R.raw.other);
+                    }
                     break;
                 case MODIFY_RESOURCES:
                     target.incrementResources(action.getAmount());
+                    effect = MediaPlayer.create(context, R.raw.other);
                     break;
                 case MODIFY_SUPPLIES:
                     target.incrementSupplies(action.getAmount());
+                    effect = MediaPlayer.create(context, R.raw.other);
                     break;
             }
+            effect.setVolume((sounds ? 1 : 0), (sounds ? 1 : 0));
+            mp.setNextMediaPlayer(effect);
         }
+        mp.start();
     }
 
     public int getId() {

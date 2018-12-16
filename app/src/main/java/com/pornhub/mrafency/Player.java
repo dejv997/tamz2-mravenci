@@ -3,8 +3,11 @@ package com.pornhub.mrafency;
 import android.graphics.Canvas;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Player implements Drawable {
     public static int CARD_COUNT = 8;
@@ -15,6 +18,8 @@ public class Player implements Drawable {
     private ResourceInfo resourceInfo;
     private Player opponent = null;
     private boolean showCards;
+    private Random rand = new Random();
+    private boolean destroyed = false;
 
     public Player(View view, GameSide side, boolean showCards) {
         this.showCards = showCards;
@@ -103,6 +108,7 @@ public class Player implements Drawable {
     public Card useCard(int i) {
         Card card = cards[i].getCard();
         if(canUse(i)) {
+            incrementResource(card.getPriceResource(), -card.getPriceAmount());
             card.use(this, opponent);
         }
         cards[i].setCard(cardManager.getRandomCard());
@@ -113,8 +119,24 @@ public class Player implements Drawable {
         return resources.get(cards[i].getCard().getPriceResource()) >= cards[i].getCard().getPriceAmount();
     }
 
-    public Card useRandomCard() {
-        return null;
+    public int getRandomPlayableCad() {
+        List<Integer> playableCards = new ArrayList<>();
+        for(int i = 0; i < cards.length; i++) {
+            if(canUse(i)) {
+                playableCards.add(i);
+            }
+        }
+        if(playableCards.size() == 0) {
+            return -1;
+        }
+        return playableCards.get(rand.nextInt(playableCards.size()));
+    }
+
+    public Card discardRandomCard() {
+        int index = rand.nextInt(cards.length);
+        Card card = cards[index].getCard();
+        cards[index].setCard(cardManager.getRandomCard());
+        return card;
     }
 
     public void damage(int amount) {
@@ -126,7 +148,11 @@ public class Player implements Drawable {
         }
 
         if(resources.get(Resource.CASTLE) <= 0) {
-            // lost game
+            destroyed = true;
         }
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
     }
 }

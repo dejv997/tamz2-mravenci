@@ -1,54 +1,445 @@
 {
-  "cards": [
+  "cards": [{
+    "id": 0,
+    "name": "Čaruj krystaly",
+    "price": {
+      "resource": 4,
+      "amount": 4
+    },
+    "actions": [{
+      "type": 3,
+      "resource": 4,
+      "amount": 8,
+      "target": 0
+    }]
+  },
     {
-      "id": 0,
-      "name": "Čaruj krystaly",
+      "id": 1,
+      "name": "Čaruj zbraně",
       "price": {
         "resource": 4,
         "amount": 4
       },
-      "actions": [
-        {
-          "type": 3,
-          "resource": 4,
-          "amount": 8,
-          "target": 0
-        }
-      ]
+      "actions": [{
+        "type": 3,
+        "resource": 4,
+        "amount": 8,
+        "target": 0
+      }]
     },
     {
       "id": 2,
+      "name": "Čaruj cihly",
+      "price": {
+        "resource": 4,
+        "amount": 4
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 0,
+        "amount": 8,
+        "target": 0
+      }]
+    },
+    {
+      "id": 3,
+      "name": "Znič krystaly",
+      "price": {
+        "resource": 4,
+        "amount": 4
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 4,
+        "amount": -8,
+        "target": 1
+      }]
+    },
+    {
+      "id": 4,
+      "name": "Znič zbraně",
+      "price": {
+        "resource": 4,
+        "amount": 4
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 2,
+        "amount": -8,
+        "target": 1
+      }]
+    },
+    {
+      "id": 5,
+      "name": "Znič cihly",
+      "price": {
+        "resource": 4,
+        "amount": 4
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 0,
+        "amount": -8,
+        "target": 1
+      }]
+    },
+    {
+      "id": 6,
+      "name": "Čaroděj",
+      "price": {
+        "resource": 4,
+        "amount": 8
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 5,
+        "amount": 1,
+        "target": 0
+      }]
+    },
+    {
+      "id": 7,
       "name": "Drak",
       "price": {
         "resource": 4,
         "amount": 21
       },
-      "actions": [
-        {
-          "type": 4,
-          "amount": 25
-        }
-      ]
+      "actions": [{
+        "type": 4,
+        "amount": 25
+      }]
     },
     {
-      "id": 1,
+      "id": 8,
+      "name": "Skřítci",
+      "price": {
+        "resource": 4,
+        "amount": 22
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 5,
+        "amount": 22,
+        "target": 0
+      }]
+    },
+    {
+      "id": 9,
       "name": "Kletba",
       "price": {
         "resource": 4,
         "amount": 25
       },
-      "actions": [
-        {
-          "type": 2,
-          "amount": -1,
-          "target": 1
-        },
+      "actions": [{
+        "type": 2,
+        "amount": -1,
+        "target": 1
+      },
         {
           "type": 2,
           "amount": 1,
           "target": 0
         }
       ]
+    },
+
+
+
+
+
+
+
+
+
+
+
+    {
+      "id": 10,
+      "name": "Zeď",
+      "price": {
+        "resource": 0,
+        "amount": 1
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 6,
+        "amount": 3,
+        "target": 0
+      }]
+    },
+    {
+      "id": 11,
+      "name": "Základy",
+      "price": {
+        "resource": 0,
+        "amount": 1
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 2,
+        "target": 0
+      }]
+    },
+    {
+      "id": 12,
+      "name": "Rezervy",
+      "price": {
+        "resource": 0,
+        "amount": 3
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 8,
+        "target": 0
+      },
+        {
+          "type": 3,
+          "resource": 6,
+          "amount": -4,
+          "target": 0
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Obrana",
+      "price": {
+        "resource": 0,
+        "amount": 3
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 6,
+        "amount": 6,
+        "target": 0
+      }]
+    },
+    {
+      "id": 14,
+      "name": "Věž",
+      "price": {
+        "resource": 0,
+        "amount": 5
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 5,
+        "target": 0
+      }]
+    },
+    {
+      "id": 15,
+      "name": "Škola",
+      "price": {
+        "resource": 0,
+        "amount": 8
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 1,
+        "amount": 1,
+        "target": 0
+      }]
+    },
+    {
+      "id": 16,
+      "name": "Povoz",
+      "price": {
+        "resource": 0,
+        "amount": 10
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 8,
+        "target": 0
+      },
+        {
+          "type": 3,
+          "resource": 7,
+          "amount": -4,
+          "target": 1
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Hradba",
+      "price": {
+        "resource": 0,
+        "amount": 12
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 6,
+        "amount": 22,
+        "target": 0
+      }]
+    },
+    {
+      "id": 18,
+      "name": "Pevnost",
+      "price": {
+        "resource": 0,
+        "amount": 18
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 20,
+        "target": 0
+      }]
+    },
+    {
+      "id": 19,
+      "name": "Babylon",
+      "price": {
+        "resource": 0,
+        "amount": 39
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": 32,
+        "target": 0
+      }]
+    },
+
+
+
+
+
+
+
+    {
+      "id": 20,
+      "name": "Střelec",
+      "price": {
+        "resource": 2,
+        "amount": 1
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 2
+      }]
+    },
+    {
+      "id": 21,
+      "name": "Jezdec",
+      "price": {
+        "resource": 2,
+        "amount": 2
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 4
+      }]
+    },
+    {
+      "id": 22,
+      "name": "Rytíř",
+      "price": {
+        "resource": 2,
+        "amount": 2
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 3
+      }]
+    },
+    {
+      "id": 23,
+      "name": "Četa",
+      "price": {
+        "resource": 2,
+        "amount": 4
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 6
+      }]
+    },
+    {
+      "id": 24,
+      "name": "Zteč",
+      "price": {
+        "resource": 2,
+        "amount": 10
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 12
+      }]
+    },
+    {
+      "id": 25,
+      "name": "Smrtka",
+      "price": {
+        "resource": 2,
+        "amount": 28
+      },
+      "actions": [{
+        "type": 4,
+        "amount": 32
+      }]
+    },
+    {
+      "id": 26,
+      "name": "Nábor",
+      "price": {
+        "resource": 2,
+        "amount": 8
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 3,
+        "amount": 1,
+        "target": 0
+      }]
+    },
+    {
+      "id": 27,
+      "name": "Sabotér",
+      "price": {
+        "resource": 2,
+        "amount": 12
+      },
+      "actions": [{
+        "type": 2,
+        "amount": -4,
+        "target": 1
+      }]
+    },
+    {
+      "id": 28,
+      "name": "Zloděj",
+      "price": {
+        "resource": 2,
+        "amount": 15
+      },
+      "actions": [{
+        "type": 2,
+        "amount": 5,
+        "target": 0
+      }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "SWAT",
+      "price": {
+        "resource": 2,
+        "amount": 18
+      },
+      "actions": [{
+        "type": 3,
+        "resource": 7,
+        "amount": -10,
+        "target": 1
+      }]
     }
   ]
 }

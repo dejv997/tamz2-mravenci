@@ -1,5 +1,6 @@
 package com.pornhub.mrafency.states;
 
 public enum State {
-    PLAYSTATE, MENUSTATE
+    PLAYER_VS_AI_STATE, MENUSTATE
 }
+

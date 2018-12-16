@@ -15,11 +15,15 @@ public class CardBack implements Drawable{
     private Paint backgroundPaint;
 
     public CardBack(View view, int index) {
+        this(view, index, (int)(view.getHeight() * 0.7));
+    }
+
+    public CardBack(View view, int index, int top) {
         float spaceWidth = (float)(view.getWidth() * 0.1 / Player.CARD_COUNT);
         float width = (float)((view.getWidth() * 0.9 - spaceWidth * (Player.CARD_COUNT - 1)) / Player.CARD_COUNT);
         float height = (width / 3) * 4;
         float left = (float)(view.getWidth() * 0.05 + width * index + spaceWidth * index);
-        float top = (float)(view.getHeight() * 0.7);
+
         cardRect = new RectF(left, top, left + width, top + height);
 
         strokePaint = new Paint();

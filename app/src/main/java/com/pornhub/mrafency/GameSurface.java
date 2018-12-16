@@ -57,8 +57,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback, 
         BitmapManager.getInstance().loadBitmaps(this.getResources());
         gsm = GameStateManager.getInstance();
 
-        gsm.putState(State.PLAYSTATE, new PlayState(this));
-        gsm.switchState(State.PLAYSTATE);
+        gsm.putState(State.PLAYER_VS_AI_STATE, new PlayState(this));
+        gsm.switchState(State.PLAYER_VS_AI_STATE);
 
         this.gameThread = new GameThread(this, holder);
         this.gameThread.setRunning(true);

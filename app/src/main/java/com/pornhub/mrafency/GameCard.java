@@ -1,7 +1,6 @@
 package com.pornhub.mrafency;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,12 +25,15 @@ public class GameCard implements Drawable {
     private View view;
 
     public GameCard(View view, Card card, int index) {
+        this(view, card, index, (int)(view.getHeight() * 0.7), false);
+    }
+
+    public GameCard(View view, Card card, int index, int top, boolean discarded) {
         this.view = view;
         float spaceWidth = (float)(view.getWidth() * 0.1 / Player.CARD_COUNT);
         float width = (float)((view.getWidth() * 0.9 - spaceWidth * (Player.CARD_COUNT - 1)) / Player.CARD_COUNT);
         float height = (width / 3) * 4;
         float left = (float)(view.getWidth() * 0.05 + width * index + spaceWidth * index);
-        float top = (float)(view.getHeight() * 0.7);
         cardRect = new RectF(left, top, left + width, top + height);
 
         strokePaint = new Paint();
@@ -63,7 +65,7 @@ public class GameCard implements Drawable {
         nameTextPos = new Point((int)(left + width * 0.5), (int)(top + height * 0.4));
         actionTextPos = new Point((int)(left + width * 0.05), (int)(top + height * 0.95));
 
-        setCard(card);
+        setCard(card, discarded);
     }
 
     public Card getCard() {
@@ -71,9 +73,18 @@ public class GameCard implements Drawable {
     }
 
     public void setCard(Card card) {
+        setCard(card, false);
+    }
+
+    public void setCard(Card card, boolean discarded) {
         this.card = card;
-        strokePaint.setColor(card.getPriceResource().getColor());
-        backgroundPaint.setColor(ColorUtil.lighten(card.getPriceResource().getColor(), 160));
+        if(discarded) {
+            strokePaint.setColor(Color.DKGRAY);
+            backgroundPaint.setColor(Color.LTGRAY);
+        } else {
+            strokePaint.setColor(card.getPriceResource().getColor());
+            backgroundPaint.setColor(ColorUtil.lighten(card.getPriceResource().getColor(), 160));
+        }
         resourceImage = BitmapManager.getInstance().getBitmap(card.getPriceResource().getImageResource());
         resourceRect = new Rect(
                 (int)(cardRect.left + (cardRect.right - cardRect.left) * 0.07),

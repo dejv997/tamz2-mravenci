@@ -87,7 +87,7 @@ public class CardManager {
 
                     actionList.add(new CardAction(type, target, amount, resource));
                 }
-                this.cards.put(id, new Card(id, name, priceResource, priceAmount, actionList));
+                this.cards.put(id, new Card(context, id, name, priceResource, priceAmount, actionList));
 
             }
 

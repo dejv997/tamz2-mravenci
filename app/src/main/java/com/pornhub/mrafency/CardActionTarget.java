@@ -1,7 +1,7 @@
 package com.pornhub.mrafency;
 
 public enum CardActionTarget {
-    PLAYER1, PLAYER2;
+    SELF, OPPONENT;
 
     public static CardActionTarget fromValue(int value) throws IllegalArgumentException {
         try {

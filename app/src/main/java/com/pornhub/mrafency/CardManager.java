@@ -75,7 +75,10 @@ public class CardManager {
                 for (int j = 0; j < actions.length(); j++) {
                     JSONObject a = actions.getJSONObject(j);
                     CardActionType type = CardActionType.fromValue(a.getInt("type"));
-                    CardActionTarget target = CardActionTarget.fromValue(a.getInt("target"));
+                    CardActionTarget target = null;
+                    if(type != CardActionType.ATTACK && type != CardActionType.STEAL_SUPPLIES) {
+                        target = CardActionTarget.fromValue(a.getInt("target"));
+                    }
                     int amount = a.getInt("amount");
                     Resource resource = null;
                     if(type == CardActionType.MODIFY_RESOURCE) {

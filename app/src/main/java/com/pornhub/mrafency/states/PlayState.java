@@ -25,6 +25,7 @@ public class PlayState implements GameState {
     private Map<PlayerType, Player> players = new HashMap<>();
     private Bitmap backgroundBitmap;
     private PlayerType onTurn;
+    private int waitTicks;
 
     public PlayState(View view) {
         this.view = view;
@@ -76,13 +77,22 @@ public class PlayState implements GameState {
 
     @Override
     public void update() {
-
+        if(waitTicks > 0) {
+            waitTicks--;
+        }
     }
 
     @Override
     public void onTouch(float x, float y) {
-        if(onTurn == PlayerType.PLAYER1) {
-            Card card = getPlayer(PlayerType.PLAYER1).useCard(x, y);
+        if(waitTicks == 0) {
+            if(onTurn == PlayerType.PLAYER1) {
+                int index = getPlayer(PlayerType.PLAYER1).getCardIndex(x, y);
+                if(index != -1) {
+                    boolean used = getPlayer(PlayerType.PLAYER1).canUse(index);
+                    Card card = getPlayer(PlayerType.PLAYER1).useCard(index);
+                    waitTicks += 120;
+                }
+            }
         }
     }
 

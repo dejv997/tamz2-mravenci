@@ -40,7 +40,26 @@ public class Player implements Drawable {
     public void incrementResource(Resource resource, int amount) {
         int value = resources.get(resource);
         value += amount;
+        if(value < 0) {
+            value = 0;
+        }
         setResource(resource, value);
+    }
+
+    public void incrementResources(int amount) {
+        for(Resource resource : resources.keySet()) {
+            if(resource != Resource.WALL && resource != Resource.CASTLE) {
+                incrementResource(resource, amount);
+            }
+        }
+    }
+
+    public void incrementSupplies(int amount) {
+        for(Resource resource : resources.keySet()) {
+            if(resource == Resource.BRICKS || resource == Resource.CRYSTALS || resource == Resource.SOLDIERS) {
+                incrementResource(resource, amount);
+            }
+        }
     }
 
     public void setResource(Resource resource, int value) {
@@ -69,25 +88,45 @@ public class Player implements Drawable {
         resourceInfo.draw(canvas);
     }
 
-    public Card useCard(float x, float y) {
+    public int getCardIndex(float x, float y) {
         for(int i = 0; i < cards.length; i++) {
             GameCard card = cards[i];
             if(card != null) {
                 if(x >= card.getRect().left && x <= card.getRect().right && y >= card.getRect().top && y <= card.getRect().bottom) {
-                    useCard(i);
-                    return card.getCard();
+                    return i;
                 }
             }
         }
-        return null;
+        return -1;
     }
 
-    private void useCard(int i) {
-        cards[i].getCard().use(this, opponent);
-        cards[i] = null;
+    public Card useCard(int i) {
+        Card card = cards[i].getCard();
+        if(canUse(i)) {
+            card.use(this, opponent);
+        }
+        cards[i].setCard(cardManager.getRandomCard());
+        return card;
+    }
+
+    public boolean canUse(int i) {
+        return resources.get(cards[i].getCard().getPriceResource()) >= cards[i].getCard().getPriceAmount();
     }
 
     public Card useRandomCard() {
         return null;
+    }
+
+    public void damage(int amount) {
+        if(amount > resources.get(Resource.WALL)) {
+            incrementResource(Resource.CASTLE, -(amount - resources.get(Resource.WALL)));
+            setResource(Resource.WALL, 0);
+        } else {
+            incrementResource(Resource.WALL, -amount);
+        }
+
+        if(resources.get(Resource.CASTLE) <= 0) {
+            // lost game
+        }
     }
 }

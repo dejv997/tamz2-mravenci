@@ -15,8 +15,23 @@
           "target": 0
         }
       ]
-    },{
+    },
+    {
       "id": 2,
+      "name": "Drak",
+      "price": {
+        "resource": 4,
+        "amount": 21
+      },
+      "actions": [
+        {
+          "type": 4,
+          "amount": 25
+        }
+      ]
+    },
+    {
+      "id": 1,
       "name": "Kletba",
       "price": {
         "resource": 4,
